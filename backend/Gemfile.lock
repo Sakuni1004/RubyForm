@@ -44,6 +44,12 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
+    active_storage_validations (2.0.2)
+      activejob (>= 6.1.4)
+      activemodel (>= 6.1.4)
+      activestorage (>= 6.1.4)
+      activesupport (>= 6.1.4)
+      marcel (>= 1.0.3)
     activejob (8.0.1)
       activesupport (= 8.0.1)
       globalid (>= 0.3.6)
@@ -72,6 +78,8 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
+    airtable (0.0.9)
+      httparty
     ast (2.4.2)
     base64 (0.2.0)
     bcrypt_pbkdf (1.1.1)
@@ -86,11 +94,16 @@ GEM
     concurrent-ruby (1.3.5)
     connection_pool (2.5.0)
     crass (1.0.6)
+    csv (3.3.2)
     date (3.4.1)
     debug (1.10.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    domain_name (0.6.20240107)
     dotenv (3.1.7)
+    dotenv-rails (3.1.7)
+      dotenv (= 3.1.7)
+      railties (>= 6.1)
     drb (2.2.1)
     ed25519 (1.3.0)
     erubi (1.13.1)
@@ -103,6 +116,13 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    http-accept (1.7.0)
+    http-cookie (1.0.8)
+      domain_name (~> 0.5)
+    httparty (0.22.0)
+      csv
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     image_processing (1.14.0)
@@ -137,12 +157,18 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
+    mime-types (3.6.0)
+      logger
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2025.0204)
     mini_magick (5.1.2)
       benchmark
       logger
     mini_mime (1.1.5)
     minitest (5.25.4)
     msgpack (1.8.0)
+    multi_xml (0.7.1)
+      bigdecimal (~> 3.1)
     net-imap (0.5.6)
       date
       net-protocol
@@ -157,6 +183,7 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     net-ssh (7.3.0)
+    netrc (0.11.0)
     nio4r (2.7.4)
     nokogiri (1.18.2-x64-mingw-ucrt)
       racc (~> 1.4)
@@ -225,6 +252,11 @@ GEM
     regexp_parser (2.10.0)
     reline (0.6.0)
       io-console (~> 0.5)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rubocop (1.72.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -312,15 +344,19 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  active_storage_validations
+  airtable
   bootsnap
   brakeman
   debug
+  dotenv-rails (~> 3.1)
   image_processing (~> 1.2)
   kamal
   pg
   puma (>= 5.0)
   rack-cors
   rails (~> 8.0.1)
+  rest-client
   rubocop-rails-omakase
   solid_cable
   solid_cache
