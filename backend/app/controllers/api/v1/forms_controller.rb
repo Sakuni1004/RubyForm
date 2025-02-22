@@ -1,34 +1,3 @@
-# class Api::V1::FormsController < ApplicationController
-#   include Rails.application.routes.url_helpers 
-
-#   def submit_form
-#     user_params = params.require(:user).permit(:first_name, :last_name, :email, :dob, :file)
-
-#     @user = User.new(user_params.except(:file)) 
-
-#     if @user.save
-#       if params[:user][:file].present?
-#         @user.file.attach(params[:user][:file])
-#       end
-
-#       file_url = @user.file.attached? ? url_for(@user.file) : nil
-
-#       airtable_response = AirtableService.push_to_airtable(@user)
-
-#       if airtable_response["id"]
-#         render json: { message: 'Form submitted successfully!', user: @user, file_url: file_url, airtable_id: airtable_response["id"] }, status: :created
-#       else
-#         render json: { message: 'Form submitted, but failed to push data to Airtable.', errors: airtable_response }, status: :unprocessable_entity
-#       end
-#     else
-#       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
-#     end
-#   end
-#   def test
-#     render json: { message: "GET request received" }
-#   end
-  
-# end
 
 
 class Api::V1::FormsController < ApplicationController
@@ -72,3 +41,4 @@ class Api::V1::FormsController < ApplicationController
     render json: { message: "GET request received" }
   end
 end
+
