@@ -1,9 +1,10 @@
 
+
 require 'airtable'
 class AirtableService
-    AIRTABLE_API_KEY = 'patfxzt7i9wOEasFF.afa2817527fc6cb886832fdcc9ff96baed699bd098773610ec483aa134fdec5a'
-    AIRTABLE_BASE_ID = 'apppvk8fxvKrtcg94'
-    TABLE_NAME = 'tblKOjNmhoviCmt6Z'
+  AIRTABLE_API_KEY = ENV['AIRTABLE_API_KEY']
+  AIRTABLE_BASE_ID = ENV['AIRTABLE_BASE_ID']
+  TABLE_NAME = ENV['TABLE_NAME']
   
     def self.push_to_airtable(user)
       uri = URI("https://api.airtable.com/v0/#{AIRTABLE_BASE_ID}/#{TABLE_NAME}")
@@ -38,5 +39,7 @@ class AirtableService
         end
       end
     end
+
+  
 
   
