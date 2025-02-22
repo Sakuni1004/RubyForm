@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Form() {
   const [formData, setFormData] = useState({
@@ -12,6 +12,7 @@ export default function Form() {
   });
 
   const [isMounted, setIsMounted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);  // Add a state to track submission status
 
   useEffect(() => {
     setIsMounted(true);
@@ -57,7 +58,10 @@ export default function Form() {
       });
 
       if (res.ok) {
-        alert('Form submitted successfully!');
+        setIsSubmitted(true);  // Set the submission state to true
+        setTimeout(() => {
+          window.location.reload();  // Refresh the page after a brief delay
+        }, 5000);  // Add a delay before the page refreshes
       } else {
         const errorData = await res.json();
         alert(`Failed to submit form: ${errorData.message || 'Unknown error'}`);
@@ -72,79 +76,86 @@ export default function Form() {
     <div suppressHydrationWarning className="min-h-screen flex justify-center items-center bg-gray-50">
       <div className="p-6 w-full max-w-md bg-gray-200 rounded">
         <h1 className="text-2xl font-bold text-blue-900 text-center mb-4 font-poppins">Submit Form</h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="first_name" className="block text-sm text-gray-700">First Name</label>
-            <input
-              id="first_name"
-              type="text"
-              name="first_name"
-              value={formData.first_name}
-              onChange={handleChange}
-              className="border p-2 mt-1 w-full text-black"
-              required
-            />
-          </div>
 
-          <div>
-            <label htmlFor="last_name" className="block text-sm text-gray-700">Last Name</label>
-            <input
-              id="last_name"
-              type="text"
-              name="last_name"
-              value={formData.last_name}
-              onChange={handleChange}
-              className="border p-2 mt-1 w-full text-black"
-              required
-            />
-          </div>
+        {/* Conditionally render the success message */}
+        {isSubmitted ? (
+          <div className="text-green-600 text-lg text-center mb-4">Thank you! Form is submitted successfully.</div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="first_name" className="block text-sm text-gray-700">First Name</label>
+              <input
+                id="first_name"
+                type="text"
+                name="first_name"
+                value={formData.first_name}
+                onChange={handleChange}
+                className="border p-2 mt-1 w-full text-black"
+                required
+              />
+            </div>
 
-          <div>
-            <label htmlFor="email" className="block text-sm text-gray-700">Email</label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="border p-2 mt-1 w-full text-black"
-              required
-            />
-          </div>
+            <div>
+              <label htmlFor="last_name" className="block text-sm text-gray-700">Last Name</label>
+              <input
+                id="last_name"
+                type="text"
+                name="last_name"
+                value={formData.last_name}
+                onChange={handleChange}
+                className="border p-2 mt-1 w-full text-black"
+                required
+              />
+            </div>
 
-          <div>
-            <label htmlFor="dob" className="block text-sm text-gray-700">Date of Birth</label>
-            <input
-              id="dob"
-              type="date"
-              name="dob"
-              value={formData.dob}
-              onChange={handleChange}
-              className="border p-2 mt-1 w-full text-black"
-              required
-            />
-          </div>
+            <div>
+              <label htmlFor="email" className="block text-sm text-gray-700">Email</label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="border p-2 mt-1 w-full text-black"
+                required
+              />
+            </div>
 
-          <div>
-            <label htmlFor="file" className="block text-sm text-gray-700">Upload PDF</label>
-            <input
-              id="file"
-              type="file"
-              name="file"
-              accept=".pdf"
-              onChange={handleFileChange}
-              className="border p-2 mt-1 w-full text-black"
-              required
-            />
-          </div>
+            <div>
+              <label htmlFor="dob" className="block text-sm text-gray-700">Date of Birth</label>
+              <input
+                id="dob"
+                type=" date"
+                name="dob"
+                value={formData.dob}
+                onChange={handleChange}
+                className="border p-2 mt-1 w-full text-black"
+                required
+              />
+            </div>
 
-          <div>
-            <button type="submit" className="bg-blue-900 text-white px-4 py-2 rounded w-full">
-              Submit
-            </button>
-          </div>
-        </form>
+            <div>
+              <label htmlFor="file" className="block text-sm text-gray-700">Upload PDF</label>
+              <input
+                id="file"
+                type="file"
+                name="file"
+                accept=".pdf, .png"
+                onChange={handleFileChange}
+                className="border p-2 mt-1 w-full text-black"
+                required
+              />
+            </div>
+
+            <div>
+              <button type="submit" className="bg-blue-900 text-white px-4 py-2 rounded w-full">
+                Submit
+              </button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );
 }
+   
